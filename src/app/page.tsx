@@ -8,12 +8,12 @@ export default function Home() {
       <SideNavBar />
 
       <section className='px-2 w-6/12'>
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        <PostCard link='/posts/abc' />
+        <PostCard link='/posts/abc' />
+        <PostCard link='/posts/abc' />
+        <PostCard link='/posts/abc' />
+        <PostCard link='/posts/abc' />
+        <PostCard link='/posts/abc' />
       </section>
 
       <RightSideBar />

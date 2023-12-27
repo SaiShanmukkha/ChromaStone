@@ -45,7 +45,7 @@ export default function CommentMDE(){
                             <h4 className="font-semibold text-lg">James Marcon</h4>
                             <span className="text-sm">Dec 25, 2023</span>
                         </div>
-                        <p className="text-lg">Interesting perspective on TailwindCSS! While it simplifies styling, your detailed analysis points out valid concerns like performance and readability. However, it's crucial to acknowledge Tailwind's utility for rapid prototyping and its resourceful design presets. Balancing its advantages with semantic CSS, as you demonstrated, offers a thoughtful approach to maintain clarity and scalability. Keep the discussion alive, considering both sides, and explore evolving methodologies in web development. Happy coding! 🚀</p>
+                        <p className="text-lg">Interesting perspective on TailwindCSS! While it simplifies styling, your detailed analysis points out valid concerns like performance and readability. However, it is crucial to acknowledge Tailwind is utility for rapid prototyping and its resourceful design presets. Balancing its advantages with semantic CSS, as you demonstrated, offers a thoughtful approach to maintain clarity and scalability. Keep the discussion alive, considering both sides, and explore evolving methodologies in web development. Happy coding! 🚀</p>
                     </div>
                     <div className="flex flex-row gap-3 text-sm">
                         <button className="flex flex-row flex-nowrap gap-1 justify-center items-center p-2 font-medium my-1 hover:bg-blue-50 rounded-lg">
