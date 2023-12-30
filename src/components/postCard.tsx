@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PostCardActions from "./posts/postCardActions";
 
 export default function PostCard({link="#"}){
     return (
@@ -16,6 +17,7 @@ export default function PostCard({link="#"}){
                     <span className="p-2 hover:bg-indigo-50 hover:text-indigo-700 font-semibold text-slate-500 cursor-pointer inline rounded-lg text-xs ">#NextJS</span>
                 </div>
                 {/* Actions -> POSTCard */}
+                <PostCardActions />
             </article>
         </Link>
     );
