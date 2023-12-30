@@ -1,0 +1,86 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Post {
+  id         BigInt    @id @default(autoincrement())
+  title      String    @unique @db.VarChar(512)
+  slug       String    @unique @db.VarChar(255)
+  createdAt  DateTime  @default(now()) @db.Timestamp(6)
+  contentURL String?
+  imageURL   String?
+  published  Boolean   @default(false)
+  authorId   BigInt
+  author     User      @relation(fields: [authorId], references: [id])
+  tags       Tag[]
+  bookmarks  Bookmark[]
+  reactions  Reaction[]
+}
+
+model Profile {
+  id              BigInt    @id @default(autoincrement())
+  bio             String?
+  themePreference String    @default("System")
+  userId          BigInt    @unique
+  user            User      @relation(fields: [userId], references: [id])
+  image           String?
+  oauthProvider   String?  
+  oauthId         String?
+  bookmarks       Bookmark[]
+}
+
+model Bookmark {
+  id        BigInt   @id @default(autoincrement())
+  postId    BigInt
+  profileId BigInt
+  post      Post     @relation(fields: [postId], references: [id])
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  @@unique([postId, profileId])
+}
+
+model User {
+  id        BigInt    @id @default(autoincrement())
+  name      String?   @db.VarChar(255)
+  email     String    @unique @db.VarChar(255)
+  roleId    BigInt
+  posts     Post[]
+  reactions Reaction[]
+  profile   Profile?
+  role      Role      @relation(fields: [roleId], references: [id])
+}
+
+model Reaction {
+  id      BigInt   @id @default(autoincrement())
+  type    ReactionType
+  postId  BigInt
+  userId  BigInt
+  post    Post     @relation(fields: [postId], references: [id])
+  user    User     @relation(fields: [userId], references: [id])
+}
+
+model Tag {
+  id    BigInt    @id @default(autoincrement())
+  name  String
+  fg    String
+  bg    String
+  posts Post[]
+}
+
+model Role {
+  id     BigInt @id @default(autoincrement())
+  name   String @unique
+  users  User[]
+}
+
+enum ReactionType {
+  ExplodingHead
+  ThumbsUp
+  Unicorn
+  Fire
+  Like
+}

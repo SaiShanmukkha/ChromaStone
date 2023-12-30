@@ -1,14 +1,17 @@
 import RightSideBar from '@components/rightSideBar';
 import Image from 'next/image';
 import DemoMDX from "@components/MD/demo.mdx";
+import ActionsSideBar from '@/components/posts/actionsBar';
+import Reactions from '@/components/posts/reactions';
 
 export default function Home() {
   return (
     <main className="flex flex-row justify-end min-h-screen w-full globalMaxW pt-1 px-1 mb-10">
       
       {/* TODO:Side Actions Bar */}
+      <ActionsSideBar />
 
-      <section className='m-2 w-9/12 rounded-lg overflow-hidden bg-white'>
+      <section className='m-2 w-8/12 rounded-lg overflow-hidden bg-white'>
         <div className='h-96 w-full relative overflow-hidden'>
           <Image 
             src={"https://source.unsplash.com/random"}
@@ -23,6 +26,7 @@ export default function Home() {
           <p className='my-4'>Dec 7, 2023</p>
 
           {/* TODO: Reactions */}
+          <Reactions />
 
           <h1 className="font-bold text-4xl leading-snug my-4">9 Projects you can do to become a Frontend Master</h1>
           
