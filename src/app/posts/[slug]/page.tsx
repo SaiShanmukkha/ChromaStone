@@ -1,10 +1,10 @@
-import RightSideBar from '@components/rightSideBar';
 import Image from 'next/image';
+import RightSideBar from '@components/rightSideBar';
 import DemoMDX from "@components/MD/demo.mdx";
-import ActionsSideBar from '@/components/posts/actionsBar';
-import Reactions from '@/components/posts/reactions';
+import ActionsSideBar from '@components/posts/actionsBar';
+import Reactions from '@components/posts/reactions';
 
-export default function Home() {
+export default function BlogPostPage() {
   return (
     <main className="flex flex-row justify-end min-h-screen w-full globalMaxW pt-1 px-1 mb-10">
       
@@ -38,12 +38,12 @@ export default function Home() {
           </div>
         </div>
 
-
         <div className='px-10'>
           <DemoMDX />
         </div>
 
         {/* <CommentMDE /> */}
+
       </section>
 
       <RightSideBar />

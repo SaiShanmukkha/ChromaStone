@@ -8,63 +8,100 @@ generator client {
 }
 
 model Post {
-  id         BigInt    @id @default(autoincrement())
-  title      String    @unique @db.VarChar(512)
-  slug       String    @unique @db.VarChar(255)
-  createdAt  DateTime  @default(now()) @db.Timestamp(6)
+  id         String     @id @default(cuid())
+  title      String     @unique @db.VarChar(512)
+  slug       String     @unique @db.VarChar(255)
+  createdAt  DateTime   @default(now()) @db.Timestamp(6)
   contentURL String?
   imageURL   String?
-  published  Boolean   @default(false)
-  authorId   BigInt
-  author     User      @relation(fields: [authorId], references: [id])
+  published  Boolean    @default(false)
+  authorId   String
+  author     User       @relation(fields: [authorId], references: [id])
   tags       Tag[]
   bookmarks  Bookmark[]
   reactions  Reaction[]
 }
 
 model Profile {
-  id              BigInt    @id @default(autoincrement())
-  bio             String?
-  themePreference String    @default("System")
-  userId          BigInt    @unique
-  user            User      @relation(fields: [userId], references: [id])
-  image           String?
-  oauthProvider   String?  
-  oauthId         String?
+  id              String     @id @default(cuid())
+  bio             String     @default("")
+  themePreference String     @default("System")
   bookmarks       Bookmark[]
-}
-
-model Bookmark {
-  id        BigInt   @id @default(autoincrement())
-  postId    BigInt
-  profileId BigInt
-  post      Post     @relation(fields: [postId], references: [id])
-  profile   Profile  @relation(fields: [profileId], references: [id])
-  @@unique([postId, profileId])
+  userId          String     @unique
+  User            User?
 }
 
 model User {
-  id        BigInt    @id @default(autoincrement())
-  name      String?   @db.VarChar(255)
-  email     String    @unique @db.VarChar(255)
-  roleId    BigInt
-  posts     Post[]
-  reactions Reaction[]
-  profile   Profile?
-  role      Role      @relation(fields: [roleId], references: [id])
+  id            String     @id @default(cuid())
+  name          String?
+  email         String?    @unique
+  roleId        String
+  profileId     String     @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  posts         Post[]
+  reactions     Reaction[]
+  profile       Profile    @relation(fields: [profileId], references: [id])
+  role          Role       @relation(fields: [roleId], references: [id])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Bookmark {
+  id        String  @id @default(cuid())
+  postId    String
+  profileId String
+  post      Post    @relation(fields: [postId], references: [id])
+  profile   Profile @relation(fields: [profileId], references: [id])
+
+  @@unique([postId, profileId])
 }
 
 model Reaction {
-  id      BigInt   @id @default(autoincrement())
-  type    ReactionType
-  postId  BigInt
-  userId  BigInt
-  post    Post     @relation(fields: [postId], references: [id])
-  user    User     @relation(fields: [userId], references: [id])
+  id     String       @id @default(cuid())
+  type   ReactionType
+  postId String
+  userId String
+  post   Post         @relation(fields: [postId], references: [id])
+  user   User         @relation(fields: [userId], references: [id])
 }
 
 model Tag {
-  id    BigInt    @id @default(autoincrement())
+  id    String @id @default(cuid())
   name  String
   fg    String
   bg    String
@@ -72,9 +109,9 @@ model Tag {
 }
 
 model Role {
-  id     BigInt @id @default(autoincrement())
-  name   String @unique
-  users  User[]
+  id    String @id @default(cuid())
+  name  String @unique
+  users User[]
 }
 
 enum ReactionType {
