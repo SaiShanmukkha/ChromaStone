@@ -15,6 +15,10 @@ export default function NavBar(){
                     </div>
                 </Link>
 
+                {/* <div className="">
+                    <input className="font-normal focus:border-2 focus:border-indigo-600 text-md outline-none border-2 placeholder:text-black border-black px-4 py-1 rounded-lg" type="text" placeholder="Search..." />
+                </div> */}
+
                 {
                     session ? 
                     <div className="gap-10 flex flex-row justify-between items-center">

@@ -4,7 +4,6 @@ import ActionsSideBar from '@components/posts/actionsBar';
 import Reactions from '@components/posts/reactions';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
-import { ReactNode } from 'react';
 
 async function getBlogData(slug:string) {
   const res = await fetch('http://localhost:3000/api/data/content', 
@@ -51,6 +50,7 @@ async function getBlogData(slug:string) {
           <Image 
             src={blogDataResp.postData!.imageURL}
             layout='fill'
+            priority
             className='relative'
             objectFit='cover'
             objectPosition='center'  
@@ -76,7 +76,7 @@ async function getBlogData(slug:string) {
         </div>
 
         <div className="prose prose-h1:text-4xl lg:prose-xl px-10 mb-10">
-          {/* <MDXRemote source={markdown} /> */}
+          <MDXRemote source={markdown} />
         </div>
 
       </section>
