@@ -1,8 +1,6 @@
 async function getTagsData(){
     const resp = await fetch(process.env.NEXTAUTH_URL+"/api/data/tags", {
-        next:{
-            revalidate: 3600
-        }
+        cache: 'no-store',
     });
     if(!resp.ok){
         return {"status": resp.status, "error": resp.statusText};

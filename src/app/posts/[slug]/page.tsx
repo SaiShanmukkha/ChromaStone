@@ -10,9 +10,7 @@ async function getBlogData(slug:string) {
     { 
       method: "POST",
       body: slug,
-      next: { 
-        revalidate: 3600,
-      }
+      cache: 'no-store',
     });
     if(!res.ok){
       return {"error": res.statusText, "status": res.status};
