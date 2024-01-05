@@ -3,11 +3,9 @@ import RightSideBar from '@components/rightSideBar';
 import ActionsSideBar from '@components/posts/actionsBar';
 import Reactions from '@components/posts/reactions';
 import { notFound } from 'next/navigation';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { ReactNode } from 'react';
 
 async function getBlogContent(contentURL:string) {
-  const res = await fetch('http://localhost:3000/api/data/content', 
+  const res = await fetch(process.env.NEXTAUTH_URL+'/api/data/content', 
     { 
       method: "POST",
       body: contentURL,
@@ -21,7 +19,7 @@ async function getBlogContent(contentURL:string) {
   }
 
 async function getBlogData(slug:string) {
-  const res = await fetch('http://localhost:3000/api/data/post', 
+  const res = await fetch(process.env.NEXTAUTH_URL+'/api/data/post', 
     { 
       method: "POST",
       body: slug,
