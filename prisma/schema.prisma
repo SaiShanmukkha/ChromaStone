@@ -16,7 +16,7 @@ model Post {
   imageURL   String?
   published  Boolean    @default(false)
   authorId   String
-  author     User       @relation(fields: [authorId], references: [id])
+  author     Profile    @relation(fields: [authorId], references: [id])
   tags       Tag[]
   bookmarks  Bookmark[]
   reactions  Reaction[]
@@ -25,26 +25,28 @@ model Post {
 model Profile {
   id              String     @id @default(cuid())
   bio             String     @default("")
+  roleId          String
   themePreference String     @default("System")
   bookmarks       Bookmark[]
-  userId          String     @unique
+  userId          String?     
   User            User?
+  reactions       Reaction[]
+  posts           Post[]
+  role            Role       @relation(fields: [roleId], references: [id])
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?    @unique
-  roleId        String
-  profileId     String     @unique
-  emailVerified DateTime?
+  email         String?   @unique
+  profileId     String    @unique
+  emailVerified Boolean?
   image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]
-  reactions     Reaction[]
-  profile       Profile    @relation(fields: [profileId], references: [id])
-  role          Role       @relation(fields: [roleId], references: [id])
+  profile       Profile   @relation(fields: [profileId], references: [id])
 }
 
 model Account {
@@ -92,16 +94,17 @@ model Bookmark {
 }
 
 model Reaction {
-  id     String       @id @default(cuid())
-  type   ReactionType
-  postId String
-  userId String
-  post   Post         @relation(fields: [postId], references: [id])
-  user   User         @relation(fields: [userId], references: [id])
+  id        String       @id @default(cuid())
+  type      ReactionType
+  postId    String
+  profileId String
+  post      Post         @relation(fields: [postId], references: [id])
+  profile   Profile      @relation(fields: [profileId], references: [id])
 }
 
 model Tag {
   id    String @id @default(cuid())
+  description String @default("")
   name  String
   fg    String
   bg    String
@@ -109,9 +112,9 @@ model Tag {
 }
 
 model Role {
-  id    String @id @default(cuid())
-  name  String @unique
-  users User[]
+  id       String    @id @default(cuid())
+  name     String    @unique
+  profiles Profile[]
 }
 
 enum ReactionType {

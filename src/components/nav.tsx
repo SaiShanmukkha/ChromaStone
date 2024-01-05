@@ -10,14 +10,15 @@ export default function NavBar(){
             <main className="flex flex-row items-center justify-between w-full h-full globalMaxW">
                 <Link href={"/"}>
                     <div className="flex flex-row justify-center items-center w-fit">
-                        <Image placeholder="empty" objectFit="contain" src="/icon.png" alt="ChromaStone" width={60} height={60} />
+                        <Image placeholder="empty" style={{objectFit:"cover"}} src="/icon.png" alt="ChromaStone" width={60} height={60} />
                         <h2 className="font-extrabold text-xl">ChromaStone</h2>
                     </div>
                 </Link>
 
-                <div className="">
+                {/* <div className="">
                     <input className="font-normal focus:border-2 focus:border-indigo-600 text-md outline-none border-2 placeholder:text-black border-black px-4 py-1 rounded-lg" type="text" placeholder="Search..." />
-                </div>
+                </div> */}
+
                 {
                     session ? 
                     <div className="gap-10 flex flex-row justify-between items-center">

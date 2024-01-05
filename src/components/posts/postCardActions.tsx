@@ -1,5 +1,6 @@
 import { FaRegComment } from "react-icons/fa";
 import { CiBookmark } from "react-icons/ci";
+import Image from "next/image";
 
 export default function PostCardActions(){
     return (
@@ -7,11 +8,11 @@ export default function PostCardActions(){
             <div className="flex gap-2 flex-row justify-between items-center">
                 <div className="flex gap-2 p-2 hover:bg-gray-100 text-xs flex-row justify-between items-center ">
                     <span className="flex flex-row gap-0 items-center justify-start">
-                        <img src="/like.png" width={24} height={24} />
-                        <img src="/fire.png" width={24} height={24} />
-                        <img src="/exploding-head.png" width={24} height={24} />
-                        <img src="/thumbs-up.png" width={24} height={24} />
-                        <img src="/raising-hands.png" width={24} height={24} />
+                        <Image src="/like.png" alt="like" width={24} height={24} />
+                        <Image alt="fire" src="/fire.png" width={24} height={24} />
+                        <Image alt="exploding-head" src="/exploding-head.png" width={24} height={24} />
+                        <Image alt="thumbs-up" src="/thumbs-up.png" width={24} height={24} />
+                        <Image alt="raising-hands" src="/raising-hands.png" width={24} height={24} />
                     </span>
                     <p>12 Reactions</p>
                 </div>
