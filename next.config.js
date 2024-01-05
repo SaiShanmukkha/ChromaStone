@@ -9,6 +9,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: '*.unsplash.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'chromastone.s3.us-east-2.amazonaws.com',
+      },
     ],
   },
 }

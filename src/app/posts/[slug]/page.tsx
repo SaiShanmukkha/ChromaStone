@@ -1,20 +1,55 @@
 import Image from 'next/image';
 import RightSideBar from '@components/rightSideBar';
-import DemoMDX from "@components/MD/demo.mdx";
 import ActionsSideBar from '@components/posts/actionsBar';
 import Reactions from '@components/posts/reactions';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { notFound } from 'next/navigation';
+import { ReactNode } from 'react';
 
-export default function BlogPostPage() {
+async function getBlogData(slug:string) {
+  const res = await fetch('http://localhost:3000/api/data/content', 
+    { 
+      method: "POST",
+      body: slug,
+      next: { 
+        revalidate: 3600,
+      }
+    });
+    if(!res.ok){
+      return {"error": res.statusText, "status": res.status};
+    }
+    const cd = await res.json();
+    return {"status": res.status, "postData" : cd }
+  }
+  
+  export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+    const blogDataResp = await getBlogData(params.slug);
+    
+    if(blogDataResp?.status === 400){
+      return notFound();
+    }
+
+    if(blogDataResp?.status != 200){
+      return (
+        <main className="flex flex-row justify-center items-center min-h-screen w-full globalMaxW pt-1 px-1 mb-2">
+          <p className='font-semibold'>
+            Unable to fetch blog post :(
+          </p>
+        </main>
+      );
+    }
+
+    const markdown = await JSON.parse(blogDataResp.postData!.content);
+    
   return (
-    <main className="flex flex-row justify-end min-h-screen w-full globalMaxW pt-1 px-1 mb-10">
+    <main className="flex flex-row justify-end min-h-screen w-full globalMaxW pt-1 px-1 mb-2">
       
-      {/* TODO:Side Actions Bar */}
       <ActionsSideBar />
 
       <section className='m-2 w-8/12 rounded-lg overflow-hidden bg-white'>
         <div className='h-96 w-full relative overflow-hidden'>
           <Image 
-            src={"https://source.unsplash.com/random"}
+            src={blogDataResp.postData!.imageURL}
             layout='fill'
             className='relative'
             objectFit='cover'
@@ -25,24 +60,24 @@ export default function BlogPostPage() {
         <div className='p-10'>
           <p className='my-4'>Dec 7, 2023</p>
 
-          {/* TODO: Reactions */}
           <Reactions />
 
-          <h1 className="font-bold text-4xl leading-snug my-4">9 Projects you can do to become a Frontend Master</h1>
+          <h1 className="font-bold text-4xl leading-snug my-4">{blogDataResp.postData!.title}</h1>
           
           <div className="flex gap-2 flex-row flex-wrap justify-items-start items-center">
-            <span className="p-2 hover:bg-indigo-50 hover:text-indigo-700 font-semibold text-slate-500 cursor-pointer inline rounded-lg text-sm">#Javascript</span>
-            <span className="p-2 hover:bg-indigo-50 hover:text-indigo-700 font-semibold text-slate-500 cursor-pointer inline rounded-lg text-sm">#WebDev</span>
-            <span className="p-2 hover:bg-indigo-50 hover:text-indigo-700 font-semibold text-slate-500 cursor-pointer inline rounded-lg text-sm">#React</span>
-            <span className="p-2 hover:bg-indigo-50 hover:text-indigo-700 font-semibold text-slate-500 cursor-pointer inline rounded-lg text-sm ">#NextJS</span>
+            {
+              blogDataResp.postData!.tags.map((tag: tag)=>{
+                return (
+                  <span key={tag.id} className="p-2 hover:bg-indigo-50 hover:text-indigo-700 font-semibold text-slate-500 cursor-pointer inline rounded-lg text-sm">#{tag.name}</span>
+                );
+              })
+            }
           </div>
         </div>
 
-        <div className='px-10'>
-          <DemoMDX />
+        <div className="prose prose-h1:text-4xl lg:prose-xl px-10 mb-10">
+          {/* <MDXRemote source={markdown} /> */}
         </div>
-
-        {/* <CommentMDE /> */}
 
       </section>
 
