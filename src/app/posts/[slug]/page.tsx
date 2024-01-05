@@ -2,11 +2,26 @@ import Image from 'next/image';
 import RightSideBar from '@components/rightSideBar';
 import ActionsSideBar from '@components/posts/actionsBar';
 import Reactions from '@components/posts/reactions';
-import { MDXRemote } from 'next-mdx-remote/rsc';
 import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { ReactNode } from 'react';
+
+async function getBlogContent(contentURL:string) {
+  const res = await fetch('http://localhost:3000/api/data/content', 
+    { 
+      method: "POST",
+      body: contentURL,
+      cache: 'no-store',
+    });
+    if(!res.ok){
+      return {"error": res.statusText, "status": res.status};
+    }
+    const cd = await res.text();
+    return {"status": res.status, "postData" : cd }
+  }
 
 async function getBlogData(slug:string) {
-  const res = await fetch('http://localhost:3000/api/data/content', 
+  const res = await fetch('http://localhost:3000/api/data/post', 
     { 
       method: "POST",
       body: slug,
@@ -25,7 +40,7 @@ async function getBlogData(slug:string) {
     if(blogDataResp?.status === 400){
       return notFound();
     }
-
+    
     if(blogDataResp?.status != 200){
       return (
         <main className="flex flex-row justify-center items-center min-h-screen w-full globalMaxW pt-1 px-1 mb-2">
@@ -35,9 +50,17 @@ async function getBlogData(slug:string) {
         </main>
       );
     }
-
-    const markdown = await JSON.parse(blogDataResp.postData!.content);
     
+    const contentRESP = await getBlogContent(blogDataResp.postData.contentURL);
+    if(contentRESP.status === 404){
+      return notFound();
+    }
+    if(contentRESP.status != 200){
+      return <p>Unable to load Page</p>;
+    }
+
+    const markdown = contentRESP.postData!;
+
   return (
     <main className="flex flex-row justify-end min-h-screen w-full globalMaxW pt-1 px-1 mb-2">
       
@@ -74,7 +97,7 @@ async function getBlogData(slug:string) {
         </div>
 
         <div className="prose prose-h1:text-4xl lg:prose-xl px-10 mb-10">
-          <MDXRemote source={markdown} />
+          {markdown}
         </div>
 
       </section>
