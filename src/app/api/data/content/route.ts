@@ -1,4 +1,5 @@
-import { S3Client, GetObjectCommand, GetObjectCommandOutput } from "@aws-sdk/client-s3";
+import { GetObjectCommand, GetObjectCommandOutput } from "@aws-sdk/client-s3";
+import s3_client from "@utils/s3Client";
 
 export async function POST(request: Request): Promise<Response> {
   // const data: string = "s3://chromastone/posts/advanced-react-state-management-and-hooks.md";
@@ -8,14 +9,6 @@ export async function POST(request: Request): Promise<Response> {
   const bucket: string = arr[2];
   const objectPath: string = data.split(bucket + "/")[1];
 
-  const client = new S3Client({
-    region: 'us-east-2',
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY || "",
-      secretAccessKey: process.env.AWS_SEC_KEY || ""
-    }
-  });
-
   const bucketParams = {
     Bucket: bucket,
     Key: objectPath,
@@ -23,7 +16,7 @@ export async function POST(request: Request): Promise<Response> {
 
   try {
     const command = new GetObjectCommand(bucketParams);
-    const response: GetObjectCommandOutput = await client.send(command);
+    const response: GetObjectCommandOutput = await s3_client.send(command);
 
     if (response.Body) {
       const content: string = await response.Body.transformToString();
@@ -38,5 +31,6 @@ export async function POST(request: Request): Promise<Response> {
       status: 404,
     });
   }
+
 }
 

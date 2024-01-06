@@ -3,33 +3,48 @@ import RightSideBar from '@components/rightSideBar';
 import ActionsSideBar from '@components/posts/actionsBar';
 import Reactions from '@components/posts/reactions';
 import { notFound } from 'next/navigation';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { escapeJsx } from '@utils/escapeJSX';
 
 async function getBlogContent(contentURL:string) {
-  const res = await fetch(process.env.NEXTAUTH_URL+'/api/data/content', 
+  const res = await fetch(process.env.BASE_URL+'/api/data/content', 
     { 
       method: "POST",
       body: contentURL,
       cache: 'no-store',
     });
     if(!res.ok){
-      return {"error": res.statusText, "status": res.status};
+      return {
+        error: res.statusText, 
+        status: res.status
+      };
     }
     const cd = await res.text();
-    return {"status": res.status, "postData" : cd }
+
+    return {
+      status: res.status, 
+      content : JSON.stringify(cd)
+    };
   }
 
 async function getBlogData(slug:string) {
-  const res = await fetch(process.env.NEXTAUTH_URL+'/api/data/post', 
+  const res = await fetch(process.env.BASE_URL+'/api/data/post', 
     { 
       method: "POST",
       body: slug,
       cache: 'no-store',
     });
     if(!res.ok){
-      return {"error": res.statusText, "status": res.status};
+      return {
+        status: res.status,
+        error: res.statusText
+      };
     }
     const cd = await res.json();
-    return {"status": res.status, "postData" : cd }
+    return {
+      status: res.status, 
+      postData : cd 
+    };
   }
   
   export default async function BlogPostPage({ params }: { params: { slug: string } }) {
@@ -57,7 +72,7 @@ async function getBlogData(slug:string) {
       return <p>Unable to load Page</p>;
     }
 
-    const markdown = contentRESP.postData!;
+    const markdown = JSON.parse(contentRESP.content!);
 
   return (
     <main className="flex flex-row justify-end min-h-screen w-full globalMaxW pt-1 px-1 mb-2">
@@ -95,7 +110,13 @@ async function getBlogData(slug:string) {
         </div>
 
         <div className="prose prose-h1:text-4xl lg:prose-xl px-10 mb-10">
-          {markdown}
+          <MDXRemote source={markdown} options={
+            {
+              mdxOptions : {
+                remarkPlugins: [escapeJsx],
+              }
+            }
+          } />
         </div>
 
       </section>
