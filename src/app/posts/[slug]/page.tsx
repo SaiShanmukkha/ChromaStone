@@ -11,6 +11,9 @@ async function getBlogContent(contentURL:string) {
     { 
       method: "POST",
       body: contentURL,
+      headers: {
+        'Content-Type': 'text/plain'
+      },
       next:{
         revalidate: 3600
       }

@@ -6,12 +6,16 @@ export async function POST(request: Request): Promise<Response> {
 
   const arr: string[] = data.split("/");
   const bucket: string = arr[2];
-  const objectPath: string = data.split(bucket + "/")[1];
+  const buckArr = data.split(bucket + "/");
+  const objectPath: string = buckArr[1];
 
   const bucketParams = {
     Bucket: bucket,
     Key: objectPath,
   };
+  
+  console.log(buckArr);
+  console.log(bucketParams);
 
   try {
     const command = new GetObjectCommand(bucketParams);
