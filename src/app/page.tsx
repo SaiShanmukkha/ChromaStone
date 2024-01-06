@@ -3,7 +3,7 @@ import PostCard from '@components/postCard'
 import SideNavBar from '@components/sideNav'
 
 async function getPostsData(){
-  const resp = await fetch(process.env.NEXTAUTH_URL + "/api/data/posts", {
+  const resp = await fetch(process.env.BASE_URL  + "/api/data/posts", {
     method: "PoST",
     next:{
       revalidate: 3600
