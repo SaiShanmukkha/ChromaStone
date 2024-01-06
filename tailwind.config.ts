@@ -7,7 +7,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+          },
+        },
+      }),
     },
   },
   darkMode: 'class',
