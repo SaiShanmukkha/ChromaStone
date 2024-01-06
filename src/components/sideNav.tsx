@@ -18,8 +18,8 @@ export default async function SideNavBar(){
     const data = await getTagsData();
 
     return (
-        <aside className="lg:h-screen lg:w-3/12 h-fit w-full">           
-            <section className="my-2 rounded-lg bg-white p-6">
+        <aside className="lg:h-screen mr-2 lg:m-0 lg:w-3/12 h-fit w-full">           
+            <section className="my-2 rounded-lg bg-white p-3">
                 <h2 className="font-bold mb-4 text-xl">Available Topics</h2> 
                 <ul className="flex flex-row lg:flex-col flex-wrap justify-start items-start gap-1">
                     {
