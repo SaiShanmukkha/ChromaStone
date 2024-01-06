@@ -4,7 +4,7 @@ import ActionsSideBar from '@components/posts/actionsBar';
 import Reactions from '@components/posts/reactions';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { escapeJsx } from '@utils/escapeJSX';
+import { mdxComponents } from '@utils/mdxCompnnets';
 
 async function getBlogContent(contentURL:string) {
   const res = await fetch(process.env.BASE_URL+'/api/data/content', 
@@ -116,14 +116,11 @@ async function getBlogData(slug:string) {
           </div>
         </div>
 
-        <div className="prose prose-h1:text-3xl px-2 md:px-16 mb-10">
-          <MDXRemote source={markdown} options={
-            {
-              mdxOptions : {
-                remarkPlugins: [escapeJsx],
-              }
-            }
-          } />
+        <div className="prose prose-lg prose-h1:text-3xl px-4 md:px-16 mb-10">
+          <MDXRemote 
+            source={markdown} 
+            components={mdxComponents}
+          />
         </div>
 
       </section>
