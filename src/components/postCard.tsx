@@ -9,7 +9,7 @@ export default function PostCard({id, title, tags, slug, imageURL, createdAt} : 
                     Dec 22, 2023 (7 hours ago)
                 </div>
 
-                <h2 className="font-bold text-3xl  hover:text-indigo-700 my-4">{title}</h2>
+                <h2 className="font-bold text-xl md:text-2xl lg:text-3xl hover:text-indigo-700 my-4">{title}</h2>
                 <div className="flex gap-2 flex-row flex-wrap justify-items-start items-center">
                     {
                         tags.map((tag)=>{

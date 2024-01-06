@@ -14,8 +14,6 @@ export async function POST(request: Request): Promise<Response> {
     Key: objectPath,
   };
   
-  console.log(buckArr);
-  console.log(bucketParams);
 
   try {
     const command = new GetObjectCommand(bucketParams);

@@ -82,11 +82,11 @@ async function getBlogData(slug:string) {
     const markdown = JSON.parse(contentRESP.content!);
 
   return (
-    <main className="flex flex-row justify-end min-h-screen w-full globalMaxW pt-1 px-1 mb-2">
+    <main className="flex flex-col lg:flex-row items-start justify-end min-h-screen w-full globalMaxW mb-2">
       
       <ActionsSideBar />
 
-      <section className='m-2 w-8/12 rounded-lg overflow-hidden bg-white'>
+      <section className='pt-1 w-full lg:w-8/12 rounded-lg overflow-hidden bg-white'>
         <div className='h-96 w-full relative overflow-hidden'>
           <Image 
             src={blogDataResp.postData!.imageURL}
@@ -98,25 +98,25 @@ async function getBlogData(slug:string) {
             alt="cover-image" />
         </div>
 
-        <div className='p-10'>
+        <div className='p-4 lg:p-10'>
           <p className='my-4'>Dec 7, 2023</p>
 
           <Reactions />
 
-          <h1 className="font-bold text-4xl leading-snug my-4">{blogDataResp.postData!.title}</h1>
+          <h1 className="font-bold text-3xl lg:text-4xl leading-snug my-4">{blogDataResp.postData!.title}</h1>
           
           <div className="flex gap-2 flex-row flex-wrap justify-items-start items-center">
             {
               blogDataResp.postData!.tags.map((tag: tag)=>{
                 return (
-                  <span key={tag.id} className="p-2 hover:bg-indigo-50 hover:text-indigo-700 font-semibold text-slate-500 cursor-pointer inline rounded-lg text-sm">#{tag.name}</span>
+                  <span key={tag.id} className="p-2 hover:bg-indigo-50 hover:text-indigo-700 font-semibold text-slate-700 cursor-pointer inline rounded-lg text-sm">#{tag.name}</span>
                 );
               })
             }
           </div>
         </div>
 
-        <div className="prose prose-h1:text-4xl lg:prose-xl px-10 mb-10">
+        <div className="prose prose-h1:text-3xl px-2 md:px-16 mb-10">
           <MDXRemote source={markdown} options={
             {
               mdxOptions : {

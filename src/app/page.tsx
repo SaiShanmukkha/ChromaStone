@@ -4,7 +4,7 @@ import SideNavBar from '@components/sideNav'
 
 async function getPostsData(){
   const resp = await fetch(process.env.BASE_URL  + "/api/data/posts", {
-    method: "PoST",
+    method: "POST",
     next:{
       revalidate: 3600
     }
@@ -19,10 +19,10 @@ async function getPostsData(){
 export default async function Home() {
   const postsData = await getPostsData();
   return (
-    <main className="flex flex-row min-h-screen w-full globalMaxW pt-1 px-1 mb-10">
+    <main className="flex flex-col lg:flex-row min-h-screen w-full globalMaxW pt-1 px-1 mb-10">
       <SideNavBar />
 
-      <section className='px-2 w-6/12'>
+      <section className='px-2 lg:w-6/12 w-full'>
         {
           postsData.status === 200 ? 
           <>

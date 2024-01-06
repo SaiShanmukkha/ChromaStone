@@ -6,7 +6,7 @@ import { FaGithub } from "react-icons/fa6";
 
 export default function RightSideBar(){
     return (
-        <aside className="w-3/12">
+        <aside className="w-full h-fit lg:w-3/12 m-1">
             <section className="my-2 rounded-lg bg-white p-6">
                 <h1 className="font-extrabold mb-4 text-center text-3xl">Blogger</h1>
                 <div className="flex mb-4 gap-4 justify-start items-center">
