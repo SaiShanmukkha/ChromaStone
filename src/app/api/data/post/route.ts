@@ -1,12 +1,7 @@
 import prisma from "@utils/prismaClient";
-import { NextApiRequest } from "next";
 
 export async function POST(req: Request) : Promise<Response> {
-//   const slugQ: string = "s3://chromastone/posts/advanced-react-state-management-and-hooks.md";
-  const slugQ: string = await req.text();
-
-  console.log("SlugQ\n\n", slugQ);
-
+    const slugQ: string = await req.text();
   const postData = await prisma.post.findUnique({
         select : {
             id: true,

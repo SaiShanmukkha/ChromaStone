@@ -11,7 +11,9 @@ async function getBlogContent(contentURL:string) {
     { 
       method: "POST",
       body: contentURL,
-      cache: 'no-store',
+      next:{
+        revalidate: 3600
+      }
     });
     if(!res.ok){
       return {
@@ -32,7 +34,9 @@ async function getBlogData(slug:string) {
     { 
       method: "POST",
       body: slug,
-      cache: 'no-store',
+      next:{
+        revalidate: 3600
+      }
     });
     if(!res.ok){
       return {

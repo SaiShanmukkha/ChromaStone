@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 async function getTagsData(){
     const resp = await fetch(process.env.BASE_URL+"/api/data/tags", {
         next:{
@@ -24,7 +26,9 @@ export default async function SideNavBar(){
                         data.status === 200 ?
                         data.tags.map((tag: tag)=>{
                             return (
-                                <li key={tag.id} className="p-2 hover:bg-slate-100 hover:text-indigo-700 hover:font-semibold cursor-pointer inline rounded-lg text-sm">#{tag.name}</li>
+                                <Link key={tag.id} href={`/topics/${tag.name}`} className="p-2 hover:text-indigo-700  hover:bg-slate-200 hover:font-semibold rounded-lg">
+                                    <li className="inline text-sm">#{tag.name}</li>
+                                </Link>
                             );
                         }) : <p className="text-sm">Error Fetching Tags :(</p>
                     }

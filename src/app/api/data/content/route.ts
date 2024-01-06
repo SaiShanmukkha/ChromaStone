@@ -2,7 +2,6 @@ import { GetObjectCommand, GetObjectCommandOutput } from "@aws-sdk/client-s3";
 import s3_client from "@utils/s3Client";
 
 export async function POST(request: Request): Promise<Response> {
-  // const data: string = "s3://chromastone/posts/advanced-react-state-management-and-hooks.md";
   const data: string = await request.text();
 
   const arr: string[] = data.split("/");
