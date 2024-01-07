@@ -13,6 +13,7 @@ model Post {
   slug       String     @unique @db.VarChar(255)
   createdAt  DateTime   @default(now()) @db.Timestamp(6)
   contentURL String?
+  readTime   Int        @default(0)
   imageURL   String?
   published  Boolean    @default(false)
   authorId   String
@@ -105,7 +106,7 @@ model Reaction {
 model Tag {
   id    String @id @default(cuid())
   description String @default("")
-  name  String
+  name  String @unique
   fg    String
   bg    String
   posts Post[]
