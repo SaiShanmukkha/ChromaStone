@@ -4,6 +4,7 @@ import './globals.css'
 import NavBar from '@components/nav'
 import SessionProvider from '@utils/sessionProvider'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '@utils/authOptions'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,7 +18,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={`${inter.className} flex flex-col items-center justify-center`}>

@@ -7,10 +7,10 @@ export default function ActionsSideBar(){
                 <span className='text-2xl'><MdOutlineAddReaction /></span>
                 <label className='text-md'>21</label>
             </div>
-            <div className='flex flex-row lg:flex-col items-center justify-center gap-3 cursor-pointer' title='Go to Comments'>
+            {/* <div className='flex flex-row lg:flex-col items-center justify-center gap-3 cursor-pointer' title='Go to Comments'>
                 <span className='text-2xl'><MdOutlineModeComment /></span>
                 <label className='text-md'>6</label>
-            </div>
+            </div> */}
             <div className='flex flex-row lg:flex-col gap-3 items-center justify-center cursor-pointer' title='Save'>
                 <span className='text-2xl'><MdBookmarkBorder /></span>
                 <label className='text-md'>33</label>

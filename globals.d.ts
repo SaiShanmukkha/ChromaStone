@@ -15,6 +15,7 @@ declare global {
 
   interface postCardParams {
     id:string,
+    readTime: number,
     title: string, 
     slug : string, 
     imageURL:string, 

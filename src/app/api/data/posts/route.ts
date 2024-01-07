@@ -8,6 +8,7 @@ export async function POST(request: Request) {
         title: true,
         tags: true,
         slug: true,
+        readTime: true,
         imageURL: true,
         createdAt: true,        
       },
