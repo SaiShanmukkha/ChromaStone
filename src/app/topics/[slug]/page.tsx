@@ -1,4 +1,3 @@
-import RightSideBar from '@components/rightSideBar'
 import PostCard from '@components/postCard'
 import { notFound } from 'next/navigation';
 
@@ -31,14 +30,14 @@ export default async function TopicPage({ params }: { params: { slug: string } }
 
   return (
     <main className="flex flex-col justify-start min-h-screen w-full globalMaxW pt-1 px-1 mb-10">
-        <div className="bg-white p-2 w-full h-fit m-2 rounded-lg">
+        <div className="bg-white p-2 h-fit m-2 rounded-lg">
           <h1 className="font-bold text-2xl my-4 mx-1">#{params.slug}</h1>
           <p className="mx-3 mb-4">
             {tagData.description}
           </p>
         </div>
 
-      <section className='px-2 w-full'>
+      <section className='px-2 w-full mt-4'>
         {
           tagData.status === 200 ? 
           <>

@@ -53,7 +53,7 @@ export const authOptions : NextAuthOptions = {
                 emailVerified: true,
                 profile: {
                   create:{
-                    themePreference: "System",
+                    themePreference: "system",
                     bio: "",
                     roleId: role.id,
                   }
@@ -112,8 +112,17 @@ export const authOptions : NextAuthOptions = {
       const customUser = await prisma.user.findUnique({
         where: { email: user.email },
         include: {
-          profile: true,
-          accounts: true
+          profile: {
+            select: {
+              themePreference: true,
+              role: {
+                select: {
+                  name: true,
+                  id: true
+                }
+              },
+            }
+          },
         },
       });
       session.user = customUser;
@@ -121,7 +130,14 @@ export const authOptions : NextAuthOptions = {
     },
 
     // async jwt({ token, user, account, profile, trigger, session }) {
-    //   return token;
-    // },
-  }
+    //     if (user) {
+    //       token.id = user.id;
+    //     }
+    //     if (account) {
+    //       token.accessToken = account.access_token;
+    //     }
+    //     return token;
+    //   },
+    
+    },
 };
