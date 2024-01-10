@@ -10,7 +10,7 @@ function formatDate(dateString: string): string {
 export default function PostCard({id, title, tags, slug, readTime, imageURL, createdAt} : postCardParams){
     return (
         <Link href={process.env.NEXTAUTH_URL + "/posts/" + slug}>
-            <article className="bg-white p-8 my-2 cursor-pointer">
+            <article className="bg-white shadow-slate-700 rounded-lg shadow-sm p-8 my-2 cursor-pointer">
                 <div className="text-sm">
                     {formatDate(createdAt)}
                 </div>
@@ -24,7 +24,7 @@ export default function PostCard({id, title, tags, slug, readTime, imageURL, cre
                     }
                 </div>
                 {/* Actions -> POSTCard */}
-                <PostCardActions readTime={readTime} />
+                {/* <PostCardActions readTime={readTime} /> */}
             </article>
         </Link>
     );

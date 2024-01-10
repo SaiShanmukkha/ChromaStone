@@ -86,7 +86,7 @@ async function getBlogData(slug:string) {
       
       <ActionsSideBar />
 
-      <section className='pt-1 w-full lg:w-8/12 rounded-lg overflow-hidden bg-white'>
+      <section className='pt-1 mr-1 w-full lg:w-8/12 rounded-lg overflow-hidden bg-white'>
         <div className='h-96 w-full relative overflow-hidden'>
           <Image 
             src={blogDataResp.postData!.imageURL}

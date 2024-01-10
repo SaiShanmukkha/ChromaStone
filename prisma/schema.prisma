@@ -28,8 +28,7 @@ model Profile {
   bio             String     @default("")
   roleId          String
   themePreference String     @default("System")
-  bookmarks       Bookmark[]
-  userId          String?     
+  bookmarks       Bookmark[]   
   User            User?
   reactions       Reaction[]
   posts           Post[]
@@ -56,13 +55,8 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
-  session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
