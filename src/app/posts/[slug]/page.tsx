@@ -101,7 +101,7 @@ async function getBlogData(slug:string) {
         <div className='p-4 lg:p-10'>
           <p className='my-4'>Dec 7, 2023</p>
 
-          {/* <Reactions /> */}
+          <Reactions />
 
           <h1 className="font-bold text-3xl lg:text-4xl leading-snug my-4">{blogDataResp.postData!.title}</h1>
           

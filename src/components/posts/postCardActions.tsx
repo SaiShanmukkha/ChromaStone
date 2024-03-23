@@ -1,6 +1,6 @@
 import { FaRegComment } from "react-icons/fa";
-import { CiBookmark } from "react-icons/ci";
 import Image from "next/image";
+import BookMark from "./bookMark";
 
 export default function PostCardActions({readTime}: {readTime : number}){
     return (
@@ -24,7 +24,7 @@ export default function PostCardActions({readTime}: {readTime : number}){
             </div>
             <div className="gap-4 flex flex-row justify-between items-center">
                 <p className="text-xs">{readTime} min read</p>
-                <span className="hover:text-indigo-600 text-xl p-2 hover:bg-indigo-100  rounded-lg"><CiBookmark /></span>
+                <BookMark />
             </div>
         </div>
     );

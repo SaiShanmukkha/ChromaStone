@@ -24,7 +24,7 @@ export default function PostCard({id, title, tags, slug, readTime, imageURL, cre
                     }
                 </div>
                 {/* Actions -> POSTCard */}
-                {/* <PostCardActions readTime={readTime} /> */}
+                <PostCardActions readTime={readTime} />
             </article>
         </Link>
     );

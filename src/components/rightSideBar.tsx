@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MdMail } from "react-icons/md";
 import { GrLinkedin } from "react-icons/gr";
 import { FaGithub } from "react-icons/fa6";
+import { CgWebsite } from "react-icons/cg";
 
 export default function RightSideBar(){
     return (
@@ -23,15 +24,20 @@ export default function RightSideBar(){
                 </div>
                 <div>
                     <p className="mb-4 text-sm font-light italic text-gray-700">&quot;I am an aspiring software engineer with a fervent passion for delving into the realms of software engineering, full stack development, and cloud technologies. Through my blog, I aim to demystify the complexities of these fields, sharing my journey and insights with a community of tech enthusiasts. My commitment is to continuous learning and contributing to the vibrant world of technology, one innovative post at a time.&quot;</p>
-                    <Link target="_blank"  href={"https://saishanmukkha.vercel.app"}>
+                    {/* <Link target="_blank"  href={"https://saishanmukkha.vercel.app"}>
                         <div className="p-2 bg-indigo-700 text-center text-sm text-white font-medium rounded-lg">
                             My Profile
                         </div>
-                    </Link>
-                </div>
+                    </Link> */}
+                </div> 
                 <div className="mt-4">
-                    <h2 className="font-semibold">Connect with me:</h2>
+                    <h2 className="font-semibold">Social Links:</h2>
                     <ul className="mt-2 flex flex-row gap-4 justify-start items-center">
+                        <li>
+                            <Link target="_blank" className="text-2xl" href={"https://saishanmukkha.vercel.app"}>
+                                <CgWebsite />
+                            </Link>
+                        </li>
                         <li>
                             <Link target="_blank" className="text-2xl" href={"https://linkedin.com/in/surapaneni-sai-shanmukkha-437b40190/"}>
                                 <GrLinkedin />
